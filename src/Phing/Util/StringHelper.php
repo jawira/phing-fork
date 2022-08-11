@@ -134,6 +134,18 @@ class StringHelper
     }
 
     /**
+     * Determine if a string contains a given substring.
+     *
+     * @param string $haystack The string to search in.
+     * @param string $needle The substring to search for in the haystack.
+     * @return bool Returns true if needle is in haystack, false otherwise.
+     */
+    public static function contains(string $haystack, string $needle): bool
+    {
+        return '' === $needle || false !== strpos($haystack, $needle);
+    }
+
+    /**
      * a natural way of getting a subtring, php's circular string buffer and strange
      * return values suck if you want to program strict as of C or friends.
      *

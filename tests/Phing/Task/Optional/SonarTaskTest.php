@@ -23,6 +23,7 @@ namespace Phing\Test\Task\Optional;
 use Exception;
 use Phing\Exception\BuildException;
 use Phing\Test\Support\BuildFileTest;
+use Phing\Util\StringHelper;
 
 /**
  * @author Bernhard Mendl <mail@bernhard-mendl.de>
@@ -213,7 +214,7 @@ class SonarTaskTest extends BuildFileTest
         // We ignore this failure, but pass ary failures that are
         // caused by other errors.
         if (
-            false !== strpos(
+            StringHelper::contains(
                 $e->getMessage(),
                 'SonarQube Scanner misses some parameters. The following properties are mandatory'
             )

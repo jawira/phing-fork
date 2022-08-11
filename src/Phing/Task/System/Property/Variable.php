@@ -28,6 +28,7 @@ use Phing\Project;
 use Phing\PropertyHelper;
 use Phing\Task\System\PropertyTask;
 use Phing\Util\Properties;
+use Phing\Util\StringHelper;
 use ReflectionObject;
 use ReflectionProperty;
 
@@ -188,7 +189,7 @@ class Variable extends PropertyTask
 
                     if ($props->containsKey($propertyName)) {
                         $fragment = $props->getProperty($propertyName);
-                        if (false !== strpos($fragment, '${')) {
+                        if (StringHelper::contains($fragment, '${')) {
                             $resolveStack[] = $propertyName;
                             $resolved = false; // parse again (could have been replaced w/ another var)
                         }

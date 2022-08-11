@@ -24,6 +24,7 @@ use Countable;
 use Phing\Exception\BuildException;
 use Phing\Io\FileUtils;
 use Phing\Task\System\Condition\OsCondition;
+use Phing\Util\StringHelper;
 
 /**
  * Commandline objects help handling command lines specifying processes to
@@ -217,8 +218,8 @@ class Commandline implements Countable
             return escapeshellarg($argument);
         }
 
-        if (false !== strpos($argument, '"')) {
-            if (false !== strpos($argument, "'")) {
+        if (StringHelper::contains($argument, '"')) {
+            if (StringHelper::contains($argument, "'")) {
                 throw new BuildException("Can't handle single and double quotes in same argument");
             }
 
@@ -226,11 +227,11 @@ class Commandline implements Countable
         }
 
         if (
-            false !== strpos($argument, "'")
-            || false !== strpos($argument, ' ')
+            StringHelper::contains($argument, "'")
+            || StringHelper::contains($argument, ' ')
             // WIN9x uses a bat file for executing commands
             || (OsCondition::isFamily('win32')
-                && false !== strpos($argument, ';'))
+                && StringHelper::contains($argument, ';'))
         ) {
             return '"' . $argument . '"';
         }

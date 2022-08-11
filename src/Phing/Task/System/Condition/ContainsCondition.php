@@ -21,6 +21,7 @@
 namespace Phing\Task\System\Condition;
 
 use Phing\Exception\BuildException;
+use Phing\Util\StringHelper;
 
 /**
  * Is one string part of another string?
@@ -77,7 +78,7 @@ class ContainsCondition implements Condition
         }
 
         return $this->caseSensitive
-            ? false !== strpos($this->string, $this->subString)
+            ? StringHelper::contains($this->string, $this->subString)
             : false !== stripos($this->string, $this->subString);
     }
 }

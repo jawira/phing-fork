@@ -22,6 +22,7 @@ namespace Phing\Test\Regression;
 
 use Exception;
 use Phing\Test\Support\BuildFileTest;
+use Phing\Util\StringHelper;
 
 /**
  * Regression test for tickets
@@ -82,7 +83,7 @@ class PearPkg2CompatibilityTest extends BuildFileTest
         try {
             $this->executeTarget('inactive');
         } catch (Exception $e) {
-            if (false !== strpos($e->getMessage(), 'Unknown channel')) {
+            if (StringHelper::contains($e->getMessage(), 'Unknown channel')) {
                 $this->markTestSkipped($e->getMessage());
             }
         }

@@ -40,6 +40,7 @@ use Phing\Type\Element\FilterChainAware;
 use Phing\Type\FileSet;
 use Phing\Type\Path;
 use Phing\Util\Register;
+use Phing\Util\StringHelper;
 
 /**
  *  Appends text, contents of a file or set of files defined by a filelist to a destination file.
@@ -273,7 +274,7 @@ class AppendTask extends Task
                             $this->appendFiles($writer, $files, $fs->getDir($this->project));
                         }
                     } catch (BuildException $be) {
-                        if (false === strpos($be->getMessage(), 'is the same as the output file')) {
+                        if (!StringHelper::contains($be->getMessage(), 'is the same as the output file')) {
                             $this->log($be->getMessage(), Project::MSG_WARN);
                         } else {
                             throw new BuildException($be->getMessage());

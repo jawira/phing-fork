@@ -26,6 +26,7 @@ use Phing\Io\File;
 use Phing\Io\FileReader;
 use Phing\Io\IOException;
 use Phing\Task\System\Condition\OsCondition;
+use Phing\Util\StringHelper;
 
 /**
  * Selector that filters files based on whether they contain a
@@ -192,7 +193,7 @@ class ContainsSelector extends BaseExtendSelector
                 if ($this->ignorewhitespace) {
                     $teststr = SelectorUtils::removeWhitespace($teststr);
                 }
-                if (false !== strpos($teststr, $userstr)) {
+                if (StringHelper::contains($teststr, $userstr)) {
                     return true;
                 }
                 $teststr = $in->readLine();

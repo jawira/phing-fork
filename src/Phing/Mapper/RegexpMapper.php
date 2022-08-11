@@ -22,6 +22,7 @@ namespace Phing\Mapper;
 
 use Phing\Exception\BuildException;
 use Phing\Util\Regexp;
+use Phing\Util\StringHelper;
 
 /**
  * Uses regular expressions to perform filename transformations.
@@ -128,7 +129,7 @@ class RegexpMapper implements FileNameMapper
     public function main($sourceFileName)
     {
         if ($this->handleDirSep) {
-            if (false !== strpos('\\', $sourceFileName)) {
+            if (StringHelper::contains('\\', $sourceFileName)) {
                 $sourceFileName = str_replace('\\', '/', $sourceFileName);
             }
         }

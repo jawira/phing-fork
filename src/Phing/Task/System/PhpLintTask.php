@@ -28,6 +28,7 @@ use Phing\Task;
 use Phing\Task\System\Element\LogLevelAware;
 use Phing\Type\Element\FileSetAware;
 use Phing\Util\DataStore;
+use Phing\Util\StringHelper;
 
 /**
  * A PHP lint task. Checking syntax of one or more PHP source file.
@@ -72,7 +73,7 @@ class PhpLintTask extends Task
      */
     public function setInterpreter($sPhp)
     {
-        if (false !== strpos($sPhp, ' ')) {
+        if (StringHelper::contains($sPhp, ' ')) {
             $sPhp = escapeshellarg($sPhp);
         }
         $this->interpreter = $sPhp;
@@ -204,7 +205,7 @@ class PhpLintTask extends Task
             ? 'php'
             : $this->interpreter;
 
-        if (false !== strpos($command, 'hhvm')) {
+        if (StringHelper::contains($command, 'hhvm')) {
             $command .= ' --no-config -l';
         } else {
             if ($this->deprecatedAsError) {

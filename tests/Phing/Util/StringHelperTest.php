@@ -8,6 +8,7 @@ use stdClass;
 
 /**
  * @internal
+ * @coversNothing
  */
 class StringHelperTest extends TestCase
 {
@@ -203,6 +204,36 @@ class StringHelperTest extends TestCase
             ['baz', 'FooBarBaz', false],
             ['Baz', 'foobarbaz', false],
             ['Baz', '', false],
+        ];
+    }
+
+    /**
+     * @covers       \Phing\Util\StringHelper::contains
+     * @dataProvider containsProvider
+     */
+    public function testContains(string $haystack = 'foo', string $needle = 'o', bool $expected = true): void
+    {
+        $result = StringHelper::contains($haystack, $needle);
+        $this->assertSame($expected, $result);
+    }
+
+    public function containsProvider(): array
+    {
+        return [
+            ['', '', true],
+            ['Foo', '', true],
+            ['Foo123', 'Fo', true],
+            ['Foo123', '23', true],
+            ['Foo123', 'o1', true],
+            ['Hello World', ' ', true],
+            ['/foo/bar/baz', '/', true],
+            ['\\\\a', '\\a', true],
+            ['te' . chr(0) . 'st', chr(0), true],
+            ['', 'Bar', false],
+            ['Bar', 'x', false],
+            ['Bar', 'A', false],
+            ['Bar', '0', false],
+            ['Bar', 'Baz', false],
         ];
     }
 
